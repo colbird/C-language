@@ -12,7 +12,7 @@ int newgetline (char *str,const int MAX){
 
 #include <ctype.h>
 
-int atoi (char *str){
+int natoi (char *str){
 	int sign;
 	int num = 0;
 	sign = (*str == '-')? -1 : 1;
@@ -66,4 +66,45 @@ int strindex (char *s, char *t){
 	return -1;
 }
 
-int getop(char *);
+
+#include <stdlib.h>
+#define BUFZISE 100
+int *buf;
+int bufp = 0;
+
+int getch (void);
+void ungetch (int);
+
+int getop(char *s){
+	if (!bufp)
+		buf = malloc(400);
+	int i, c;
+	
+	while ((*s = c = getch()) == ' ' || c == '\t')
+		;
+	*(s + 1) = '\0';
+	if (!isdigit(c) && c != '.')
+		return c;
+	i = 0;
+	if (isdigit(c))
+		while (isdigit(*(s + ++i) = c = getch()))
+			;
+	if (c == '.')
+		while (isdigit(*(s + ++i) = c = getch()))
+			;
+	*(s + i) = '\0';
+	if (c != EOF)
+		ungetch(c);
+	return 1;
+}
+
+
+int getch(void){
+	return bufp ? *(buf + --bufp) : getchar();
+}
+void ungetch(int c){
+	if (bufp >= BUFZISE)
+		printf ("ungetch: too many characters\n");
+	else
+		*(buf + bufp++) = c;
+}
