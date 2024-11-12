@@ -14,15 +14,61 @@ char token[MAXTOKEN];		/*  最后一个记号字符串  */
 char name[MAXTOKEN];		/*  标记符名  */
 char datatype[MAXTOKEN];	/*  数据类型为char, int 等  */
 char out[1000];			/*  输出串  */
+char errtype(char *);
 
 int main(){			/*  将声明转换为文字描述  */
 	while (gettoken() != EOF){	/*  该行的第一个记号是数据类型  */
-		strcpy(datatype,  token);
+		if (errtype(token)){
+			printf ("%s: error token\n", token);
+			break;
+		}
+		strcpy(datatype, token);
 		out[0] = '\0';
 		dcl();
 		if (tokentype != '\n')
 			printf ("syntax error\n");
 		printf ("%s: %s %s\n", name, out, datatype);
+	}
+	return 0;
+}
+
+char errtype(char *s){
+	/*
+	 * char
+	 * short
+	 * int
+	 * long
+	 * float
+	 * double
+	*/
+	switch(*s){
+		case 'c':
+			if (strcmp("char",s))
+				return 1;
+			break;
+		case 's':
+			if (strcmp("short",s))
+				return 1;
+			break;
+		case 'i':
+			if (strcmp("int",s))
+				return 1;
+			break;
+		case 'l':
+			if (strcmp("long",s))
+				return 1;
+			break;
+		case 'f':
+			if (strcmp("float",s))
+				return 1;
+			break;
+		case 'd':
+			if (strcmp("double",s))
+				return 1;
+			break;
+		default:
+			return 1;
+			break;
 	}
 	return 0;
 }
