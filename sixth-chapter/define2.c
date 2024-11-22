@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct nlist {			/*  链表项  */
 	struct nlist *next;	/*  链表中下一表项  */
@@ -150,8 +152,6 @@ unsigned hash(char *s){
 	return hashval % HASHSIZE;
 }
 
-#include <stdlib.h>
-#include <string.h>
 
 struct nlist *lookup(char *);
 char *newstrdup(char *);
