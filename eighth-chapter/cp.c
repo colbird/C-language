@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#define PERMS 0666	/*  对于所有者、所有者组和其他成员均可读写  */
+#define PERMS 0	777	/*  对于所有者、所有者组和其他成员均可读写  */
 
 static void error(char *, ...);
 
