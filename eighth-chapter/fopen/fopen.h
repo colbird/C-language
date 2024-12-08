@@ -43,4 +43,8 @@ int _flushbuf(int, FILE *);
 #define getchar()	getc(stdin)
 #define putchar(x)	putc((x), stdout)
 
+FILE *fopen(char *, char *);
+int fflush(FILE*);
+int fclose(FILE*);
+int fseek(FILE*, long, int);
 #endif
